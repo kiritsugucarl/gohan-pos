@@ -1,11 +1,14 @@
 package com.example.konbinipos;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -19,77 +22,69 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class Register extends AppCompatActivity {
 
     private TextInputEditText editEmail, editPassword;
-    private TextView clickToRegister;
-    private Button buttonLogin;
+    private TextView clickToLogin;
+    private Button buttonRegister;
     private ProgressBar progressBar;
     FirebaseAuth mAuth;
 
     @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), Konbini.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
         editEmail = findViewById(R.id.email);
         editPassword = findViewById(R.id.password);
-        clickToRegister = findViewById(R.id.registerNow);
-        buttonLogin = findViewById(R.id.btn_login);
+        buttonRegister = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
+        clickToLogin = findViewById(R.id.loginNow);
 
-        clickToRegister.setOnClickListener(new View.OnClickListener() {
+        clickToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Register.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
-        buttonLogin.setOnClickListener(new View.OnClickListener(){
+        buttonRegister.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v){
+            public void onClick(View view){
                 progressBar.setVisibility(View.VISIBLE);
                 String email, password;
                 email = editEmail.getText().toString();
                 password = editPassword.getText().toString();
 
                 if(TextUtils.isEmpty(email)){
-                    Toast.makeText(MainActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Please enter your email", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(password)){
-                    Toast.makeText(MainActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Please enter your password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                mAuth.signInWithEmailAndPassword(email, password)
+                mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), Konbini.class);
-                                    startActivity(intent);
-                                    finish();
-
+                                    /*
+                                     Sign in success, update UI with the signed-in user's information
+                                     Log.d(TAG, "createUserWithEmail:success");
+                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    */
+                                    Toast.makeText(Register.this, "Account created.",
+                                            Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    // If sign in fails, display a message to the user.
+                                    // Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                    Toast.makeText(Register.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }
