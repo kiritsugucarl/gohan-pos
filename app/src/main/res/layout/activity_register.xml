@@ -7,13 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="15dp"
-    tools:context=".MainActivity">
+    tools:context=".Register">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/login"
+        android:text="@string/register"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginBottom="25dp"/>
@@ -43,20 +43,20 @@
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
+    
     <Button
-        android:id="@+id/btn_login"
-        android:text="@string/login"
+        android:id="@+id/btn_register"
+        android:text="@string/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/registerNow"
-        android:text="@string/click_to_register"
+        android:id="@+id/loginNow"
+        android:text="@string/click_to_login"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
+    
 </LinearLayout>
