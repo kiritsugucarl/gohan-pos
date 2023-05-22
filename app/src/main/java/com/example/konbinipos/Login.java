@@ -25,13 +25,13 @@ public class Login extends AppCompatActivity {
     private TextView clickToRegister;
     private Button buttonLogin;
     private ProgressBar progressBar;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     @Override
     public void onStart() {
         super.onStart();
 
-        // Check if user is signed in (non-null) and update UI accordingly.
+        // Check if user is signed in (non-null) and go to the right activity right away.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             Intent intent = new Intent(getApplicationContext(), OrderType.class);
@@ -45,7 +45,10 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // getting firebase instance
         mAuth = FirebaseAuth.getInstance();
+
+        // component fetching
         editEmail = findViewById(R.id.email);
         editPassword = findViewById(R.id.password);
         clickToRegister = findViewById(R.id.registerNow);
@@ -62,14 +65,19 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        // login button clicked
         buttonLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                //show loading bar
                 progressBar.setVisibility(View.VISIBLE);
+
                 String email, password;
+
                 email = editEmail.getText().toString();
                 password = editPassword.getText().toString();
 
+                // Empty fields checker
                 if(TextUtils.isEmpty(email)){
                     Toast.makeText(Login.this, "Please enter your email", Toast.LENGTH_SHORT).show();
                     return;
@@ -92,8 +100,8 @@ public class Login extends AppCompatActivity {
                                     finish();
 
                                 } else {
-                                    Toast.makeText(Login.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, "Authentication failed, check your email and password",
+                                            Toast.LENGTH_LONG).show();
                                 }
                             }
                         });

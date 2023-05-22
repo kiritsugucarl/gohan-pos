@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -43,24 +41,30 @@ public class Orders extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
 
+        // firebase instance
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
+        // get current user id
         String currentUserID = user.getUid();
 
+        // component fetching
         order_place = findViewById(R.id.cart_items);
         backBtn = findViewById(R.id.backBtn);
         checkout = findViewById(R.id.checkout);
         finalPayment = findViewById(R.id.finalPrice);
         orderType = findViewById(R.id.orderType);
 
+        // database reference
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userRef = database.getReference("users");
+        DatabaseReference userRef = database.getReference("users"); // users >
 
+        // users > currentUserID > orderType
         userRef.child(currentUserID).child("orderType").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
+                    // show order type
                     String userOrderType = snapshot.getValue(String.class);
                     orderType.setText("ORDER TYPE : " + userOrderType);
                 }
@@ -68,28 +72,28 @@ public class Orders extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Orders.this, "Error. " + error, Toast.LENGTH_SHORT).show();
             }
         });
 
+        // users > currentUserID > cartItems
         userRef.child(currentUserID).child("cartItems").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot itemSnapshot : snapshot.getChildren()){
-                    String itemID = itemSnapshot.getKey();
+                    String itemID = itemSnapshot.getKey(); // might be used later
                     String productId = itemSnapshot.child("productID").getValue(String.class);
                     String categoryKey = itemSnapshot.child("categoryKey").getValue(String.class);
                     int quantity = itemSnapshot.child("quantity").getValue(Integer.class);
 
-//                    System.out.println(itemID);
-//                    System.out.println(productId);
-//                    System.out.println(quantity);
-
                     DatabaseReference productRef = database.getReference("products").child(categoryKey).child(productId);
+
                     productRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
+
+                                // retrieve data
                                 String engName = snapshot.child("engName").getValue(String.class);
                                 String japName = snapshot.child("japName").getValue(String.class);
                                 String image = snapshot.child("image").getValue(String.class);
@@ -146,7 +150,7 @@ public class Orders extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            Toast.makeText(Orders.this, "Error.", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -156,10 +160,11 @@ public class Orders extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Orders.this, "Error.", Toast.LENGTH_SHORT).show();
             }
         });
 
+        // back button pressed
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,14 +172,17 @@ public class Orders extends AppCompatActivity {
             }
         });
 
+        // checkout pressed
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String checkOutOrderId = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("checkout_orders").push().getKey();
-                DatabaseReference currentUserRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID);
-                DatabaseReference checkOutOrderRef = currentUserRef.child("checkout_orders").child(checkOutOrderId);
+                String checkOutOrderId = FirebaseDatabase.getInstance().getReference().child("users")
+                        .child(currentUserID).child("checkout_orders").push().getKey(); // generate a uid
+                DatabaseReference currentUserRef = FirebaseDatabase.getInstance().getReference().
+                        child("users").child(currentUserID); // users > currentUserID
+                DatabaseReference checkOutOrderRef = currentUserRef.child("checkout_orders").child(checkOutOrderId); //users > currentUserID > checkout_orders
 
-                currentUserRef.child("cartItems").removeValue();
+                currentUserRef.child("cartItems").removeValue(); // delete cart items once checkout
 
                 checkOutOrderRef.setValue(checkOutOrderData).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -185,9 +193,6 @@ public class Orders extends AppCompatActivity {
                         finish();
                     }
                 });
-
-
-
             }
         });
 

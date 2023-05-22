@@ -3,11 +3,9 @@ package com.example.konbinipos;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,53 +20,50 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 
 public class Gohan extends AppCompatActivity {
 
-    FirebaseAuth auth;
-    Button logout_btn;
-    FirebaseUser user;
-    LinearLayout product_place;
+    private FirebaseAuth auth;
+    private Button logout_btn;
+    private FirebaseUser user;
+    private LinearLayout product_place;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_konbini);
 
+        // firebase instance
         auth = FirebaseAuth.getInstance();
+
+        // component fetching
         logout_btn = findViewById(R.id.logout);
         product_place = findViewById(R.id.product_place);
 
-
+        // firebase database reference
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("products");
+        DatabaseReference databaseReference = firebaseDatabase.getReference("products"); // products >
 
         databaseReference.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                        String category = dataSnapshot.getKey();
+                        String category = dataSnapshot.getKey(); // will be used when kayla design is here
 
+                        // iterate every product
                         for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
                             String image = productSnapshot.child("image").getValue(String.class);
                             String engName = productSnapshot.child("engName").getValue(String.class);
                             String japName = productSnapshot.child("japName").getValue(String.class);
                             int price = productSnapshot.child("price").getValue(Integer.class);
 
-//                            Log.d("FirebaseData", "Category: " + category);
-//                            Log.d("FirebaseData", "Image URL: " + image);
-//                            Log.d("FirebaseData", "Eng Name: " + engName);
-//                            Log.d("FirebaseData", "Jap Name: " + japName);
-//                            Log.d("FirebaseData", "Price: " + price);
-
                             // Create LinearLayout to hold product details
                             LinearLayout productLayout = new LinearLayout(Gohan.this);
                             productLayout.setOrientation(LinearLayout.VERTICAL);
                             productLayout.setLayoutParams(new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                            // Create TextView to display product name and price
+                            // Create TextView to display product name and price and details
                             TextView prodEngName = new TextView(Gohan.this);
                             prodEngName.setText(engName);
 
@@ -88,13 +83,16 @@ public class Gohan extends AppCompatActivity {
                             productLayout.addView(prodJapName);
                             productLayout.addView(prodPrice);
 
+                            // Add everything to the layout
                             product_place.addView(productLayout);
 
+                            // make the layout clickable
                             productLayout.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     String productId = productSnapshot.getKey();
-                                    String categoryKey = productSnapshot.child("categoryKey").getValue(String.class);
+                                    String categoryKey = productSnapshot.child("categoryKey").getValue(String.class); // product > categoryKey
+
                                     Intent intent = new Intent(Gohan.this, FoodInfo.class);
                                     intent.putExtra("productID", productId);
                                     intent.putExtra("categoryKey", categoryKey);
@@ -126,16 +124,15 @@ public class Gohan extends AppCompatActivity {
                 }
         );
 
+        // if no user check
         user = auth.getCurrentUser();
         if(user == null){
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
         }
-        else{
-            System.out.println("Test");
-        }
 
+        // logout button clicked
         logout_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

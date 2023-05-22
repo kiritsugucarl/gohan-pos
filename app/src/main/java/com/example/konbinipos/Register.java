@@ -12,10 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -28,14 +26,17 @@ public class Register extends AppCompatActivity {
     private TextView clickToLogin;
     private Button buttonRegister;
     private ProgressBar progressBar;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Firebase Instance
         mAuth = FirebaseAuth.getInstance();
+
+        // Declaration of the Components
         firstName = findViewById(R.id.firstName);
         lastName = findViewById(R.id.lastName);
         editEmail = findViewById(R.id.email);
@@ -54,6 +55,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        // Register
         buttonRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -61,14 +63,20 @@ public class Register extends AppCompatActivity {
             }
         });
     }
+
     private void registerUser(){
+        // Add loading bar
         progressBar.setVisibility(View.VISIBLE);
+
         String email, password;
+
+        // Pass in the details
         email = editEmail.getText().toString().trim();
         password = editPassword.getText().toString();
         String fName = firstName.getText().toString().trim();
         String lName = lastName.getText().toString().trim();
 
+        // If the field is empty checkers
         if(TextUtils.isEmpty(fName)){
             Toast.makeText(Register.this, "Please enter your first name", Toast.LENGTH_SHORT).show();
             return;
@@ -88,18 +96,25 @@ public class Register extends AppCompatActivity {
             return;
         }
 
-        // Firebase API
+        // Firebase API to create user with email and password
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
+                        // remove loading
                         progressBar.setVisibility(View.GONE);
                         FirebaseUser user = mAuth.getCurrentUser();
                         if(user != null){
                             String fullName = fName + " " + lName;
                             String userId = mAuth.getCurrentUser().getUid();
+
+                            //add user to database
                             DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
                             DatabaseReference userChildRef = usersRef.child(userId);
+
+                            //creating child and its components
                             userChildRef.child("name").setValue(fullName);
+
+                            //setting name in firebase auth
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(fullName)
                                     .build();
@@ -107,6 +122,9 @@ public class Register extends AppCompatActivity {
                                     .addOnCompleteListener(updateTask -> {
                                         if(updateTask.isSuccessful()){
                                             Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(Register.this, OrderType.class);
+                                            startActivity(intent);
+                                            finish();
                                         }
                                         else{
                                             Toast.makeText(Register.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -115,20 +133,5 @@ public class Register extends AppCompatActivity {
                         }
                     }
                 });
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        progressBar.setVisibility(View.GONE);
-//                        if (task.isSuccessful()) {
-//                            Toast.makeText(Register.this, "Account created.",
-//                                    Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Toast.makeText(Register.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-
     }
 }

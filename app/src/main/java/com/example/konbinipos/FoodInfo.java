@@ -43,17 +43,19 @@ public class FoodInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_info);
 
+        // fetch intent
         Intent intent = getIntent();
         if(intent != null){
             productID = intent.getStringExtra("productID");
             categoryKey = intent.getStringExtra("categoryKey");
         }
 
+        // firebase authentication
         firebaseAuth = FirebaseAuth.getInstance();
         String userId = firebaseAuth.getCurrentUser().getUid();
-        String fullName = firebaseAuth.getCurrentUser().getDisplayName();
+        String fullName = firebaseAuth.getCurrentUser().getDisplayName(); // might be used later
 
-        userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+        userRef = FirebaseDatabase.getInstance().getReference("users").child(userId); // users > userId
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -63,10 +65,11 @@ public class FoodInfo extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //empty
+                Toast.makeText(FoodInfo.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
 
+        // component fetching
         englishName = findViewById(R.id.prodName);
         japaneseName = findViewById(R.id.prodJapName);
         prodPrice = findViewById(R.id.prodPrice);
@@ -79,18 +82,22 @@ public class FoodInfo extends AppCompatActivity {
         subQty = findViewById(R.id.minusQty);
         prodCount = findViewById(R.id.quantity);
 
+        // quantity of products
         prodQty = Integer.parseInt(prodCount.getText().toString());
 
-        productRef = FirebaseDatabase.getInstance().getReference().child("products").child(categoryKey).child(productID);
+        productRef = FirebaseDatabase.getInstance().getReference().child("products")
+                .child(categoryKey).child(productID); // products > categoryKey > productID
 
         productRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // fetch item details...
                 engName = snapshot.child("engName").getValue(String.class);
                 japName = snapshot.child("japName").getValue(String.class);
                 price = snapshot.child("price").getValue(Integer.class);
                 image = snapshot.child("image").getValue(String.class);
 
+                // and set it in the TextView and ImageView
                 englishName.setText(engName);
                 japaneseName.setText(japName);
                 prodPrice.setText(getString(R.string.peso_sign) + price);
@@ -100,11 +107,12 @@ public class FoodInfo extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //error code goes here
+                Toast.makeText(FoodInfo.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
 
 
+        // back button pressed
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +120,7 @@ public class FoodInfo extends AppCompatActivity {
             }
         });
 
+        // add to order pressed
         addToOrder.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -123,7 +132,7 @@ public class FoodInfo extends AppCompatActivity {
                             String productToAdd = productID;
                             int qtyToAdd = Integer.parseInt(prodCount.getText().toString());
 
-                            //here goes the function to store it in the database
+                            // Hashing details
                             Map<String, Object> cartItem = new HashMap<>();
                             cartItem.put("productID", productToAdd);
                             cartItem.put("quantity", qtyToAdd);
@@ -140,12 +149,13 @@ public class FoodInfo extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Toast.makeText(FoodInfo.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
 
+        // view orders clicked
         viewOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,6 +165,7 @@ public class FoodInfo extends AppCompatActivity {
             }
         });
 
+        // minus button clicked
         subQty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,6 +177,7 @@ public class FoodInfo extends AppCompatActivity {
             }
         });
 
+        // add button clicked
         addQty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +187,8 @@ public class FoodInfo extends AppCompatActivity {
             }
         });
     }
+
+    // set price function for shortcut
     private Integer setPrice(int price, int quantity){
         int finalPrice = price * quantity;
         priceDisplay.setText(getString(R.string.price) + finalPrice);
