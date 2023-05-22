@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KonbiniPOS</string>
+    <string name="app_name">GohanPOS</string>
     <string name="login">Login</string>
     <string name="enter_email">Enter email</string>
     <string name="enter_password">Enter password</string>
@@ -9,4 +9,21 @@
     <string name="welcome_to_konbini">WELCOME TO KONBINI</string>
     <string name="hello_world">Hello World</string>
     <string name="logout">Logout</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="name_goes_here">Name goes here</string>
+    <string name="jap_goes_here">jap goes here</string>
+    <string name="add_to_order">add to order</string>
+    <string name="back"><![CDATA[<]]></string>
+    <string name="where_will_you_be_eating_today">Where will you be eating today?</string>
+    <string name="dine_in">Dine In</string>
+    <string name="take_out">Take Out</string>
+    <string name="hello_customer">Hello, customer</string>
+    <string name="price">Price : ₱</string>
+    <string name="peso_sign">₱</string>
+    <string name="checkout">CHECKOUT</string>
+    <string name="my_orders">MY ORDERS</string>
+    <string name="your_order_number_is">YOUR ORDER NUMBER IS</string>
+    <string name="click_complete_if_done_ordering">Click complete if done ordering</string>
+    <string name="complete">Complete</string>
 </resources>
