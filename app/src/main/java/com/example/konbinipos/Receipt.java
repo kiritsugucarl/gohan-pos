@@ -30,11 +30,8 @@ public class Receipt extends AppCompatActivity {
     private int orderId = random.nextInt(100);
     private FirebaseAuth auth;
     private FirebaseUser user;
-
     private TextView orderNum, finalPriceTV;
-
     private LinearLayout orderList;
-
     private Button completeBtn;
 
     @Override
@@ -42,28 +39,34 @@ public class Receipt extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt);
 
+        // firebase instance
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
+        // get current uid
         String currentUserID = user.getUid();
 
+        // component fetching
         orderNum = findViewById(R.id.orderNum);
         orderList = findViewById(R.id.orderList);
         finalPriceTV = findViewById(R.id.finalPrice);
         completeBtn = findViewById(R.id.complete);
 
+        // firebase database reference
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userRef = database.getReference("users").child(currentUserID).child("checkout_orders");
 
+        // set random order number to emulate real life queueing
         orderNum.setText(Integer.toString(orderId));
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot checkOutOrderSnapshot : snapshot.getChildren()){
-                    String checkOutKey = checkOutOrderSnapshot.getKey();
+                    String checkOutKey = checkOutOrderSnapshot.getKey(); // getting key to fetch specific data
 
-                    DatabaseReference checkOutRef = database.getReference("users").child(currentUserID).child("checkout_orders").child(checkOutKey);
+                    DatabaseReference checkOutRef = database.getReference("users").child(currentUserID)
+                            .child("checkout_orders").child(checkOutKey); // users > currentUserID > checkout_orders > checkOutKey
                     checkOutRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -72,12 +75,14 @@ public class Receipt extends AppCompatActivity {
                                 finalPriceTV.setText("Final Payment : P" + totalPrice);
                                 HashMap<String, String> productList = new HashMap<>();
 
+                                // retrieval of hashmap
                                 for (DataSnapshot productSnapshot : snapshot.child("productList").getChildren()) {
                                     String productName = productSnapshot.getKey();
                                     String productDetails = productSnapshot.getValue(String.class);
                                     productList.put(productName, productDetails);
                                 }
 
+                                // deserializing hashmap
                                 for (String productName : productList.keySet()) {
                                     String productDetails = productList.get(productName);
 
@@ -91,7 +96,7 @@ public class Receipt extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            Toast.makeText(Receipt.this, "Error", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -99,15 +104,16 @@ public class Receipt extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Receipt.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
 
+        // complete buttonc licked
         completeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Assuming you have a DatabaseReference for the checkout_orders node
-                DatabaseReference checkoutOrdersRef = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserID).child("checkout_orders");
+                DatabaseReference checkoutOrdersRef = FirebaseDatabase.getInstance().getReference().child("users")
+                        .child(currentUserID).child("checkout_orders"); // users > currentUserID > checkout_orders
 
                 // Remove the checkout_orders node
                 checkoutOrdersRef.removeValue()
