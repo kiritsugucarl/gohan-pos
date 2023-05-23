@@ -1,19 +1,19 @@
 <resources>
-    <string name="app_name">GohanPOS</string>
-    <string name="login">Login</string>
+    <string name="app_name">Gohan Ordering App</string>
+    <string name="login">LOGIN</string>
     <string name="enter_email">Enter email</string>
     <string name="enter_password">Enter password</string>
-    <string name="register">Register</string>
-    <string name="click_to_login">Click to login</string>
+    <string name="register">REGISTRATION</string>
+    <string name="click_to_login">Registered? Click to login</string>
     <string name="click_to_register">Not registered? Click to register</string>
-    <string name="welcome_to_konbini">WELCOME TO KONBINI</string>
+    <string name="welcome_to_konbini">WELCOME TO GOHAN</string>
     <string name="hello_world">Hello World</string>
     <string name="logout">Logout</string>
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
     <string name="name_goes_here">Name goes here</string>
     <string name="jap_goes_here">jap goes here</string>
-    <string name="add_to_order">add to order</string>
+    <string name="add_to_order">ADD TO ORDER</string>
     <string name="back"><![CDATA[<]]></string>
     <string name="where_will_you_be_eating_today">Where will you be eating today?</string>
     <string name="dine_in">Dine In</string>
@@ -24,6 +24,11 @@
     <string name="checkout">CHECKOUT</string>
     <string name="my_orders">MY ORDERS</string>
     <string name="your_order_number_is">YOUR ORDER NUMBER IS</string>
-    <string name="click_complete_if_done_ordering">Click complete if done ordering</string>
+    <string name="click_complete_if_done_ordering">Click complete if order is received by the counter</string>
     <string name="complete">Complete</string>
+    <string name="email_address">Email Address :</string>
+    <string name="password">Password :</string>
+    <string name="order_success">Order Success!</string>
+    <string name="checkoutcaps">CHECKOUT</string>
+    <string name="please_be_patient">Please be patient...</string>
 </resources>

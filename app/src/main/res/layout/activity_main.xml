@@ -18,21 +18,35 @@
         android:textStyle="bold"
         android:layout_marginBottom="25dp"/>
 
+    <TextView
+        android:text="@string/email_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_texteditor"
             android:hint="@string/enter_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:text="@string/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_texteditor"
             android:hint="@string/enter_password"
             android:inputType="textPassword"
             android:layout_width="match_parent"
@@ -47,8 +61,10 @@
 
     <Button
         android:id="@+id/btn_login"
+        android:layout_marginBottom="20dp"
         android:text="@string/login"
-        android:layout_width="wrap_content"
+        android:backgroundTint="#FF3E3F"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView

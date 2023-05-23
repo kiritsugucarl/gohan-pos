@@ -25,36 +25,47 @@
         android:textSize="36dp"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"/>
 
-    <GridLayout
-        android:rowCount="1"
-        android:columnCount="2"
-        android:columnOrderPreserved="true"
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="300dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:flexDirection="row"
+        app:justifyContent="space_between">
 
         <LinearLayout
             android:id="@+id/dineIn_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1">
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="#F7E7D6"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:src="@drawable/dinein_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:text="@string/dine_in"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/takeOut_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
+            android:background="#F7E7D6"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:src="@drawable/takeout_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:text="@string/take_out"
@@ -62,6 +73,6 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-    </GridLayout>
+    </com.google.android.flexbox.FlexboxLayout>
 
 </LinearLayout>

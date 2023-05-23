@@ -12,51 +12,81 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:gravity="center"
         android:text="@string/register"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="25dp"/>
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="First Name :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/firstName"
-            android:hint="@string/first_name"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_texteditor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/first_name" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:text="Last Name :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/lastName"
-            android:hint="@string/last_name"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_texteditor"
+            android:hint="@string/last_name" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:text="@string/email_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
-            android:hint="@string/enter_email"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_texteditor"
+            android:hint="@string/enter_email" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:text="@string/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
-            android:hint="@string/enter_password"
-            android:inputType="textPassword"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_texteditor"
+            android:hint="@string/enter_password"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
@@ -67,8 +97,10 @@
     
     <Button
         android:id="@+id/btn_register"
+        android:layout_marginBottom="20dp"
         android:text="@string/register"
-        android:layout_width="wrap_content"
+        android:backgroundTint="#FF3E3F"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView

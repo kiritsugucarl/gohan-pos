@@ -99,7 +99,7 @@ public class FoodInfo extends AppCompatActivity {
 
                 // and set it in the TextView and ImageView
                 englishName.setText(engName);
-                japaneseName.setText(japName);
+                japaneseName.setText("(" + japName + ")");
                 prodPrice.setText(getString(R.string.peso_sign) + price);
                 Picasso.get().load(image).into(prodImg);
                 setPrice(price, prodQty);

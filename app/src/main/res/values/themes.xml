@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.KonbiniPOS" parent="Theme.Material3.DayNight.NoActionBar" />
+
+    <style name="ButtonStyle" parent="Widget.Material3.Button">
+        <item name="android:background">@drawable/rounded_button</item>
+        <!-- Add more customizations as needed -->
+    </style>
+
 </resources>
