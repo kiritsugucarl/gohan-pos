@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <padding android:top="8dp" android:right="8dp" android:bottom="8dp" android:left="8dp" /> <!-- Padding to create space for the shadow -->
+    <solid android:color="#FFFFFF" /> <!-- Background color of the shadow -->
+    <corners android:radius="8dp" /> <!-- Radius of the rounded corners -->
+    <corners android:topLeftRadius="0dp" android:topRightRadius="0dp" /> <!-- Disable rounded corners at the top -->
+    <gradient
+        android:startColor="#22000000"
+    android:endColor="#11000000"
+    android:angle="270" /> <!-- Gradient angle (vertical) -->
+</shape>

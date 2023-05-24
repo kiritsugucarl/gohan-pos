@@ -9,31 +9,65 @@
     android:padding="15dp"
     tools:context=".Login">
 
+    <LinearLayout
+        android:id="@+id/imageSliderHolder"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="30dp">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/login"
-        android:textSize="20sp"
+        android:layout_gravity="start"
+        android:textColor="#B1464A"
+        android:text="@string/log_in_to_your_account"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:layout_marginBottom="25dp"/>
+
+    <TextView
+        android:text="YOUR EMAIL ADDRESS:"
+        android:textColor="#767171"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
-            android:hint="@string/enter_email"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_texteditor"
+            android:hint="@string/email_address_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:text="YOUR PASSWORD:"
+        android:textColor="#767171"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
-            android:hint="@string/enter_password"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_texteditor"
+            android:hint="@string/password_hint"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -47,13 +81,15 @@
 
     <Button
         android:id="@+id/btn_login"
+        android:layout_marginBottom="20dp"
         android:text="@string/login"
-        android:layout_width="wrap_content"
+        android:textSize="20sp"
+        android:backgroundTint="#BC1823"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/registerNow"
-        android:text="@string/click_to_register"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="20sp"

@@ -10,58 +10,81 @@
 
     <ImageView
         android:id="@+id/gohanLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/customerGreeting"
-        android:textStyle="italic"
+        android:textStyle="bold"
         android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <TextView
         android:text="@string/where_will_you_be_eating_today"
-        android:textSize="36dp"
+        android:textSize="30dp"
+        android:textColor="#BC1823"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"/>
 
-    <GridLayout
-        android:rowCount="1"
-        android:columnCount="2"
-        android:columnOrderPreserved="true"
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="300dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:flexDirection="row"
+        app:justifyContent="space_between">
 
         <LinearLayout
             android:id="@+id/dineIn_btn"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/rounded_texteditor"
+            android:padding="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1">
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/dinein_icon"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginBottom="20dp"/>
 
             <TextView
                 android:text="@string/dine_in"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/takeOut_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-
-            <TextView
-                android:text="@string/take_out"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="#767171"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-    </GridLayout>
+        <LinearLayout
+            android:id="@+id/takeOut_btn"
+            android:background="@drawable/rounded_texteditor"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/takeout_icon"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:text="@string/take_out"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="#767171"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </com.google.android.flexbox.FlexboxLayout>
 
 </LinearLayout>

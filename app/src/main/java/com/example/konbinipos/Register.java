@@ -4,8 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -45,6 +49,23 @@ public class Register extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         clickToLogin = findViewById(R.id.loginNow);
 
+        String text = "Registered? Click to login";
+        String firstPortion = "Registered?";
+        String secondPortion = "Click to login";
+
+        // Create a SpannableString
+        SpannableString spannableString = new SpannableString(text);
+
+        // Set the color for the first portion ("Registered?")
+        ForegroundColorSpan firstColorSpan = new ForegroundColorSpan(Color.parseColor("#767171")); // Change the color as needed
+        spannableString.setSpan(firstColorSpan, 0, firstPortion.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Set the color for the second portion ("Click to login")
+        ForegroundColorSpan secondColorSpan = new ForegroundColorSpan(Color.parseColor("#B1464A")); // Change the color as needed
+        spannableString.setSpan(secondColorSpan, firstPortion.length() + 1, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Set the SpannableString to the TextView
+        clickToLogin.setText(spannableString);
         // Go to Login Activity
         clickToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
