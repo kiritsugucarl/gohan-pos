@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/allFood"
+            android:title="All Foods"
+            android:onClick="categoryChosen"/>
+
+        <item
+            android:id="@+id/donburi"
+            android:title="Donburi"
+            android:icon="@drawable/donburi"
+            android:onClick="categoryChosen"/>
+
+        <item
+            android:id="@+id/ramen"
+            android:title="Ramen"
+            android:icon="@drawable/ramen"
+            android:onClick="categoryChosen"/>
+
+        <item
+            android:id="@+id/soup"
+            android:title="Soup"
+            android:icon="@drawable/soup"
+            android:onClick="categoryChosen"/>
+
+        <item
+            android:id="@+id/sushi"
+            android:title="Sushi"
+            android:icon="@drawable/sushi"
+            android:onClick="categoryChosen"/>
+
+        <item
+            android:id="@+id/yakitori"
+            android:title="Yakitori"
+            android:icon="@drawable/yakitori"
+            android:onClick="categoryChosen"/>
+
+        <item
+            android:id="@+id/takoyaki"
+            android:title="Takoyaki"
+            android:icon="@drawable/takoyaki"
+            android:onClick="categoryChosen"/>
+
+        <item
+            android:id="@+id/sides"
+            android:title="Sides"
+            android:icon="@drawable/side_dishes"
+            android:onClick="categoryChosen"/>
+
+        <item
+            android:id="@+id/desserts"
+            android:title="Desserts"
+            android:icon="@drawable/dessert"
+            android:onClick="categoryChosen"/>
+    </group>
+
+    <item
+        android:title="">
+
+            <menu>
+                <item
+                    android:id="@+id/logout"
+                    android:title="Logout"
+                    android:icon="@drawable/logout"
+                    android:onClick="logOut"/>
+            </menu>
+
+    </item>
+
+
+
+</menu>

@@ -5,13 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +40,8 @@ public class Orders extends AppCompatActivity {
     private HashMap<String, Object> checkOutOrderData = new HashMap<>();
     private HashMap<String, String> productList = new HashMap<>();
     private  int finalPaymentPrice = 0;
+    private int tProdPrice = 0;
+    private String engName, japName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +101,8 @@ public class Orders extends AppCompatActivity {
                             if (snapshot.exists()) {
 
                                 // retrieve data
-                                String engName = snapshot.child("engName").getValue(String.class);
-                                String japName = snapshot.child("japName").getValue(String.class);
+                                engName = snapshot.child("engName").getValue(String.class);
+                                japName = snapshot.child("japName").getValue(String.class);
                                 String image = snapshot.child("image").getValue(String.class);
                                 int price = snapshot.child("price").getValue(Integer.class);
 
@@ -103,48 +110,40 @@ public class Orders extends AppCompatActivity {
                                 LinearLayout productLayout = new LinearLayout(Orders.this);
                                 productLayout.setOrientation(LinearLayout.VERTICAL);
                                 productLayout.setLayoutParams(new LinearLayout.LayoutParams(
-                                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                                productLayout.setGravity(Gravity.CENTER);
+                                View productView = LayoutInflater.from(Orders.this).inflate(R.layout.product_info, productLayout, false);
 
-                                // Create TextView to display product name and price
-                                TextView prodEngName = new TextView(Orders.this);
+                                // Find views within the inflated layout
+                                ImageView prodImg = productView.findViewById(R.id.prodImg);
+                                TextView prodEngName = productView.findViewById(R.id.prodEngName);
+                                TextView prodJapName = productView.findViewById(R.id.prodJapName);
+                                TextView prodPrice = productView.findViewById(R.id.prodPrice);
+                                TextView prodQty = productView.findViewById(R.id.prodQty);
+                                TextView totalProdPrice = productView.findViewById(R.id.totalProdPrice);
+
+                                // Set the values for each view
                                 prodEngName.setText(engName);
-
-                                TextView prodJapName = new TextView(Orders.this);
-                                prodJapName.setText(japName);
-
-                                TextView prodPrice = new TextView(Orders.this);
+                                prodJapName.setText("(" + japName + ")");
                                 prodPrice.setText("Price: ₱" + price);
-
-                                TextView prodQty = new TextView(Orders.this);
-                                prodQty.setText(Integer.toString(quantity));
-
-                                int tProdPrice = price * quantity;
-
-                                TextView totalProdPrice = new TextView(Orders.this);
+                                prodQty.setText("Quantity : " + quantity);
+                                tProdPrice = price * quantity;
                                 totalProdPrice.setText("Total: ₱" + tProdPrice);
-
                                 finalPaymentPrice = finalPaymentPrice + tProdPrice;
                                 System.out.println(finalPaymentPrice);
                                 finalPayment.setText("GRAND TOTAL ₱: " + finalPaymentPrice);
 
-                                // Create ImageView to display product image
-                                ImageView prodImg = new ImageView(Orders.this);
+                                // Load image using Picasso into the ImageView
                                 Picasso.get().load(image).into(prodImg);
+
+                                // Add the inflated layout to the parent LinearLayout
+                                productLayout.addView(productView);
+                                order_place.addView(productLayout);
 
                                 productList.put(engName + "(" + japName + ")", "x" + quantity + " " + tProdPrice);
                                 checkOutOrderData.put("totalPrice", finalPaymentPrice);
                                 checkOutOrderData.put("productList", productList);
 
-
-                                // Add TextView and ImageView to the product LinearLayout
-                                productLayout.addView(prodImg);
-                                productLayout.addView(prodEngName);
-                                productLayout.addView(prodJapName);
-                                productLayout.addView(prodPrice);
-                                productLayout.addView(prodQty);
-                                productLayout.addView(totalProdPrice);
-
-                                order_place.addView(productLayout);
                             }
                         }
 
@@ -163,6 +162,7 @@ public class Orders extends AppCompatActivity {
                 Toast.makeText(Orders.this, "Error.", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         // back button pressed
         backBtn.setOnClickListener(new View.OnClickListener() {

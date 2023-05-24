@@ -36,7 +36,8 @@ public class FoodInfo extends AppCompatActivity {
     private EditText prodCount;
     private ImageView prodImg;
 
-    private Button backBtn, addToOrder, viewOrders, addQty, subQty;
+    private Button backBtn, addToOrder, addQty, subQty;
+    private TextView viewOrders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,7 +192,7 @@ public class FoodInfo extends AppCompatActivity {
     // set price function for shortcut
     private Integer setPrice(int price, int quantity){
         int finalPrice = price * quantity;
-        priceDisplay.setText(getString(R.string.price) + finalPrice);
+        priceDisplay.setText("PHP" + finalPrice);
 
         return finalPrice;
     }

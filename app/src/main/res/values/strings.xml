@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Gohan Ordering App</string>
-    <string name="login">LOGIN</string>
+    <string name="login">LOG IN</string>
     <string name="enter_email">Enter email</string>
     <string name="enter_password">Enter password</string>
     <string name="register">REGISTRATION</string>
@@ -15,7 +15,7 @@
     <string name="jap_goes_here">jap goes here</string>
     <string name="add_to_order">ADD TO ORDER</string>
     <string name="back"><![CDATA[<]]></string>
-    <string name="where_will_you_be_eating_today">Where will you be eating today?</string>
+    <string name="where_will_you_be_eating_today">WHERE WILL YOU BE EATING TODAY?</string>
     <string name="dine_in">Dine In</string>
     <string name="take_out">Take Out</string>
     <string name="hello_customer">Hello, customer</string>
@@ -24,11 +24,14 @@
     <string name="checkout">CHECKOUT</string>
     <string name="my_orders">MY ORDERS</string>
     <string name="your_order_number_is">YOUR ORDER NUMBER IS</string>
-    <string name="click_complete_if_done_ordering">Click complete if order is received by the counter</string>
+    <string name="click_complete_if_done_ordering">Click COMPLETE if order is received by the counter</string>
     <string name="complete">Complete</string>
     <string name="email_address">Email Address :</string>
     <string name="password">Password :</string>
     <string name="order_success">Order Success!</string>
     <string name="checkoutcaps">CHECKOUT</string>
     <string name="please_be_patient">Please be patient...</string>
+    <string name="log_in_to_your_account">LOG IN TO YOUR ACCOUNT</string>
+    <string name="email_address_hint">Email Address</string>
+    <string name="password_hint">Password</string>
 </resources>

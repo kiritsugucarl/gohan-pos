@@ -2,10 +2,15 @@ package com.example.konbinipos;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -19,6 +24,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Login extends AppCompatActivity {
 
     private TextInputEditText editEmail, editPassword;
@@ -26,6 +34,9 @@ public class Login extends AppCompatActivity {
     private Button buttonLogin;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
+    private ImageSliderAdapter adapter;
+    private ViewPager2 viewPager;
+    private List<Integer> images;
 
     @Override
     public void onStart() {
@@ -54,6 +65,30 @@ public class Login extends AppCompatActivity {
         clickToRegister = findViewById(R.id.registerNow);
         buttonLogin = findViewById(R.id.btn_login);
         progressBar = findViewById(R.id.progressBar);
+        viewPager = findViewById(R.id.viewPager);
+
+        images = new ArrayList<>();
+        images.add(R.drawable.banner1);
+        images.add(R.drawable.banner2);
+        images.add(R.drawable.banner3);
+
+        adapter = new ImageSliderAdapter(images);
+        viewPager.setAdapter(adapter);
+
+        String text = "Not registered? Click to register";
+        String firstPortion = "Not registered?";
+
+        SpannableString spannableString = new SpannableString(text);
+
+        // Set the color for the first portion ("Not registered?")
+        ForegroundColorSpan firstColorSpan = new ForegroundColorSpan(Color.parseColor("#767171")); // Change the color as needed
+        spannableString.setSpan(firstColorSpan, 0, firstPortion.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Set the color for the second portion ("Click to register")
+        ForegroundColorSpan secondColorSpan = new ForegroundColorSpan(Color.parseColor("#B1464A")); // Change the color as needed
+        spannableString.setSpan(secondColorSpan, firstPortion.length() + 1, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        clickToRegister.setText(spannableString);
 
         // Go to Register Activity
         clickToRegister.setOnClickListener(new View.OnClickListener() {

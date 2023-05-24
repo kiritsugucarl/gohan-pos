@@ -8,9 +8,9 @@
     <Button
         android:id="@+id/backBtn"
         android:text="@string/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FF3E3F"
+        android:layout_width="75dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#BC1823"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -25,25 +25,26 @@
 
         <ImageView
             android:id="@+id/prodImg"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="225dp"
+            android:layout_height="225dp"
             android:layout_gravity="center_horizontal" />
 
         <TextView
             android:id="@+id/prodName"
-            android:textSize="16dp"
+            android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="#767171"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name_goes_here"
             android:layout_gravity="center_horizontal" />
 
         <TextView
             android:id="@+id/prodJapName"
             android:textStyle="bold|italic"
+            android:textSize="20sp"
+            android:textColor="#767171"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/jap_goes_here"
             android:layout_gravity="center_horizontal" />
 
         <TextView
@@ -56,18 +57,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center_horizontal">
-
-            <TextView
-                android:text="Quantity : "
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            android:paddingLeft="30dp">
 
             <Button
                 android:id="@+id/minusQty"
-                android:backgroundTint="#FF3E3F"
+                android:backgroundTint="#BC1823"
                 android:text="-"
                 android:textColor="#F9F9F9"
                 android:layout_width="60dp"
@@ -84,11 +78,21 @@
 
             <Button
                 android:id="@+id/plusQty"
-                android:backgroundTint="#FF3E3F"
+                android:backgroundTint="#BC1823"
                 android:text="+"
                 android:textColor="#F9F9F9"
                 android:layout_width="60dp"
                 android:layout_height="40dp" />
+
+            <TextView
+                android:id="@+id/priceDisplay"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:textColor="#B1464A"
+                android:text="Price : price"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -96,28 +100,25 @@
             android:orientation="vertical"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:layout_gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/priceDisplay"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:text="Price : price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/addToOrder"
-                android:backgroundTint="#FF3E3F"
+                android:backgroundTint="#BC1823"
                 android:text="@string/add_to_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <Button
-                android:layout_marginTop="100dp"
+            <TextView
                 android:id="@+id/viewOrders"
                 android:backgroundTint="#FF3E3F"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
+                android:textColor="#767171"
+                android:textStyle="bold"
                 android:text="View orders »"
+                android:textAllCaps="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
